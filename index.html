@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>쿠팡 트래픽 자동화</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="toolbar">
+      <button id="btnStart" class="primary">시작</button>
+      <button id="btnStop" class="danger">중지</button>
+      <button id="btnSaveConfig" class="secondary">설정저장</button>
+      <button id="btnSaveTasks" class="secondary">작업저장</button>
+      <button id="btnSaveResults" class="secondary">결과저장</button>
+      <button id="btnResetStats" class="danger-inline">초기화</button>
+      <span id="runnerStatus" class="status">대기 중</span>
+    </div>
+
+    <div class="main-flex">
+      <div class="row-top">
+        <div class="panel task-panel">
+          <h3>작업 키워드</h3>
+          <div class="body">
+            <table class="data">
+              <thead>
+                <tr>
+                  <th class="col-check"><input type="checkbox" id="checkAll" title="전체 선택" /></th>
+                  <th class="col-rownum">순번</th>
+                  <th>검색 키워드</th>
+                  <th>상품 URL</th>
+                  <th id="thSecondKeyword">2차 키워드 (선택)</th>
+                  <th style="width:70px">상품 ID</th>
+                  <th style="width:52px">목표</th>
+                  <th style="width:52px">성공</th>
+                  <th style="width:52px">실패</th>
+                  <th style="width:56px">순위</th>
+                  <th style="width:64px">리뷰</th>
+                  <th style="width:80px">할인 판매가</th>
+                </tr>
+              </thead>
+              <tbody id="taskBody"></tbody>
+            </table>
+            <div class="row-tools">
+              <button id="btnAddRow">행 추가</button>
+              <button id="btnDelRow">선택 행 삭제</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="config-row">
+          <div class="panel config-panel">
+            <div class="panel-title-row">
+              <h3>작업 딜레이 (ms)</h3>
+              <button id="btnSaveDelayPanel" class="panel-header-save" type="button">저장</button>
+            </div>
+            <div class="body form">
+              <label>작업 선택</label>
+              <select id="searchFlowVersion">
+                <option value="A">A — 1차 + 2차 조합 검색</option>
+                <option value="B">B — 메인 키워드만</option>
+                <option value="C">C — 제목풀 (2차 키워드만 검색)</option>
+                <option value="D">D — 순위체크만 (트래픽 없음)</option>
+              </select>
+              <label>워크 모드</label>
+              <select id="mode">
+                <option value="desktop">Desktop</option>
+                <option value="mobile">Mobile</option>
+                <option value="random">Random</option>
+              </select>
+              <label>최대 스크롤(페이지)</label>
+              <input id="maxScroll" type="number" min="1" value="5" />
+              <label>브라우저 로드</label>
+              <input id="delayBrowserLoad" type="number" min="0" value="2500" />
+              <label>탐색 간격</label>
+              <input id="delayExplore" type="number" min="0" value="500" />
+            </div>
+          </div>
+
+          <div class="panel config-panel">
+            <h3>User-Agent</h3>
+            <div class="body">
+              <textarea class="block compact-textarea" rows="3" placeholder="Desktop UA"></textarea>
+              <textarea class="block compact-textarea" rows="3" placeholder="Mobile UA"></textarea>
+            </div>
+          </div>
+
+          <div class="panel config-panel">
+            <div class="panel-title-row">
+              <h3>IP 로테이션</h3>
+              <button id="btnSaveIpRotation" class="panel-header-save" type="button">저장</button>
+            </div>
+            <div class="body">
+              <label><input type="checkbox" id="ipRotationEnabled" /> 작업 전 네트워크 전환 (ADB 데이터 OFF/ON)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel log-wrap">
+        <h3>로그</h3>
+        <div class="body">
+          <textarea id="logArea" class="log-area" readonly></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

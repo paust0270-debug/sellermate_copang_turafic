@@ -1,0 +1,55 @@
+{
+  "name": "sellermate-coupang-traffic-gui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "쿠팡 트래픽/순위체크 GUI",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --win portable --x64"
+  },
+  "dependencies": {
+    "playwright": "^1.54.2"
+  },
+  "devDependencies": {
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.sellermate.coupang.traffic",
+    "productName": "CoupangTraffic",
+    "directories": {
+      "output": "dist-exe"
+    },
+    "files": [
+      "**/*",
+      "!dist-exe/**"
+    ],
+    "asar": true,
+    "extraResources": [
+      {
+        "from": "worker-runner.cjs",
+        "to": "runner/worker-runner.cjs"
+      },
+      {
+        "from": "node_modules/playwright",
+        "to": "runner/node_modules/playwright"
+      },
+      {
+        "from": "node_modules/playwright-core",
+        "to": "runner/node_modules/playwright-core"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signAndEditExecutable": false
+    }
+  }
+}

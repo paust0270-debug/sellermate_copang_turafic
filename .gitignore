@@ -1,0 +1,9 @@
+node_modules/
+dist-exe/
+dist-exe-*/
+data/
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
